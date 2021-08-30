@@ -8,6 +8,12 @@ import { getFilesWithKeyword } from './utils/getFilesWithKeyword';
 const app: Express = express();
 
 /************************************************************************************
+ *                              Make connection with MongoDB 
+ ***********************************************************************************/
+
+
+
+/************************************************************************************
  *                              Basic Express Middlewares
  ***********************************************************************************/
 
@@ -27,10 +33,10 @@ if (process.env.NODE_ENV === 'production' || config.NODE_ENV === 'production') {
 }
 
 /************************************************************************************
- *                               Register all routes
+ *                               Register all controllers
  ***********************************************************************************/
 
-getFilesWithKeyword('router', __dirname + '/app').forEach((file: string) => {
+getFilesWithKeyword('controller', __dirname + '/controllers').forEach((file: string) => {
   const { router } = require(file);
   app.use('/', router);
 })
