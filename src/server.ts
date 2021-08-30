@@ -3,15 +3,17 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 import config from '../config.json';
+
 import { getFilesWithKeyword } from './utils/getFilesWithKeyword';
+import { connectionBD } from './utils/connectionBD';
 
 const app: Express = express();
 
 /************************************************************************************
  *                              Make connection with MongoDB 
- ***********************************************************************************/
+***********************************************************************************/
 
-
+ connectionBD();
 
 /************************************************************************************
  *                              Basic Express Middlewares
