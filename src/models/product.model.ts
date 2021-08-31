@@ -9,10 +9,11 @@ export interface ProductInterface extends Document {
 };
 
 export const ProductSchema: Schema = new Schema({
-    uid: { type: String, required: true },
+    uid: { type: String },
     name: { type: String, required: true, lowercase: true },
     unitPrice: { type: Number, required: true },
-    supplier: { type: String, required: true, lowercase: true }
+    supplier: { type: String, required: true, lowercase: true },
+    quantity: { type: Number, required: true }
 });
 
 export default mongoose.model<ProductInterface>('Product', ProductSchema);
