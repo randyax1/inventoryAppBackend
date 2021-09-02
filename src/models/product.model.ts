@@ -5,6 +5,7 @@ export interface ProductInterface extends Document {
     name: string;
     unitPrice: number;
     supplier: string;
+    category: string;
     quantity: number;
 };
 
@@ -13,6 +14,7 @@ export const ProductSchema: Schema = new Schema({
     name: { type: String, required: true, lowercase: true },
     unitPrice: { type: Number, required: true },
     supplier: { type: String, required: true, lowercase: true },
+    category: { type: String, required: true },
     quantity: { type: Number, required: true }
 });
 
