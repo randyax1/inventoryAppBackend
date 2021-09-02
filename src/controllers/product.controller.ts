@@ -11,9 +11,9 @@ export const router: Router = Router();
 router.post(PRODUCT_ENDPOINT, async (req: Request, res: Response) => {
     try {
         
-        const { name, unitPrice, supplier, quantity } = req.body;
+        const { name, unitPrice, supplier, category, quantity } = req.body;
 
-        if(name === null || unitPrice === null || supplier === null || quantity === null){
+        if(name === null || unitPrice === null || supplier === null || category === null || quantity === null){
             return res.status(401).send({ message: '¡Ningun campo puede estar vacio!'});
         }
 
@@ -22,6 +22,7 @@ router.post(PRODUCT_ENDPOINT, async (req: Request, res: Response) => {
             name,
             unitPrice,
             supplier,
+            category,
             quantity
         );
 
@@ -51,7 +52,7 @@ router.get(PRODUCT_ENDPOINT, async (req: Request, res: Response) => {
 router.put(PRODUCT_ENDPOINT + "/:productId", async (req: Request, res: Response) => {
     try {
         
-        const { name, unitPrice, supplier, quantity } = req.body;
+        const { name, unitPrice, supplier, category, quantity } = req.body;
         const productId = req.params.productId;
 
         const product = await getProductsById(res.locals.uid,productId);
@@ -66,6 +67,7 @@ router.put(PRODUCT_ENDPOINT + "/:productId", async (req: Request, res: Response)
             name,
             unitPrice,
             supplier,
+            category,
             quantity
         );
 

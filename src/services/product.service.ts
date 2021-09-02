@@ -1,12 +1,13 @@
 import productModel, { ProductInterface } from "../models/product.model";
 
-export const createProduct = async (uid: string, name: string, unitPrice: number, supplier: string, quantity: number): Promise<ProductInterface> => {
+export const createProduct = async (uid: string, name: string, unitPrice: number, supplier: string, category: string, quantity: number): Promise<ProductInterface> => {
 
     const product = new productModel({
         uid: uid,
         name: name,
         unitPrice: unitPrice,
         supplier: supplier,
+        category: category,
         quantity: quantity
     });
 
@@ -45,12 +46,13 @@ export const getProductsById = async (uid: string, productId: string): Promise<P
 }
 
 export const updateProduct = async (
-    uid: string, product: ProductInterface, name: string, unitPrice: number, supplier: string, quantity: number
+    uid: string, product: ProductInterface, name: string, unitPrice: number, supplier: string, category: string, quantity: number
 ): Promise<ProductInterface> => {
 
     if(name) product.name = name;
     if(unitPrice) product.unitPrice = unitPrice;
     if(supplier) product.supplier = supplier;
+    if(category) product.category = category;
     if(quantity) product.quantity = quantity;
 
     return await product.save();
