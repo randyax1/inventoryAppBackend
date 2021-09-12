@@ -7,7 +7,7 @@ import { handleError } from '../utils/handleError';
 export const router: Router = Router();
 
 //                          C
-//Creates a new category
+//Create a new category
 router.post(CATEGORY_ENDPOINT, async (req: Request, res: Response) => {
     try {
 
@@ -50,7 +50,7 @@ router.get(CATEGORY_ENDPOINT, async (req: Request, res: Response) => {
   });
 //                          U
 //Update a category
-//Updates product
+//Update a product
 router.put(CATEGORY_ENDPOINT + "/:categoryId", async (req: Request, res: Response) => {
     try {
       
@@ -86,15 +86,15 @@ router.delete(CATEGORY_ENDPOINT + "/:categoryId", async (req: Request, res: Resp
         const category = await getCategoryById(req.params.categoryId);
 
         if(!category) {
-            return res.status(404).send({ message: `La categoria con el codigo ${req.params.categoryId} no existe.`});
+            return res.status(404).send({ message: `La categoria con el id ${req.params.categoryId} no existe.`});
         } else {
             deleteCategoryById(req.params.categoryId);
 
-            return res.status(200).send({ message: `El producto con el id ${req.params.categoryId} a sido borrado`})
+            return res.status(200).send({ message: `El producto con el id ${req.params.categoryId} a sido borrado`});
         }
 
     } catch (err) {
-        return handleError(res, err)
+        return handleError(res, err);
     }
 
 });
