@@ -1,10 +1,8 @@
-import { CategoryInterface } from '../models/category.model';
-import supplierModel from '../models/supplier.model';
-import SupplierModel, { SupplierInterface } from '../models/supplier.model';
+import supplierModel, { SupplierInterface } from '../models/supplier.model';
 
-export const createSupplier = async (name: string, email: string, contactNumber: number, state: string, city: string): Promise<CategoryInterface> => {
+export const createSupplier = async (name: string, email: string, contactNumber: number, state: string, city: string): Promise<SupplierInterface> => {
 
-    const Supplier = new SupplierModel({
+    const Supplier = new supplierModel({
         name: name,
         email: email,
         contactNumber: contactNumber,
@@ -18,7 +16,7 @@ export const createSupplier = async (name: string, email: string, contactNumber:
 
 export const getSuppliersById = async (): Promise<SupplierInterface[] | null> => {
 
-    const suppliers = await SupplierModel.find({});
+    const suppliers = await supplierModel.find({});
 
     return suppliers;
 
