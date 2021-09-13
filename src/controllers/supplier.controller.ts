@@ -41,7 +41,7 @@ router.get(SUPPLIER_ENDPOINT, async (req: Request, res: Response) => {
 
 });
 
-//                              R
+//                              U
 //Update a Supplier
 router.put(SUPPLIER_ENDPOINT + "/:supplierId", async(req: Request, res: Response) => {
 
