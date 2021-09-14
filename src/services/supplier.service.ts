@@ -1,3 +1,4 @@
+import productModel from '../models/product.model';
 import supplierModel, { SupplierInterface } from '../models/supplier.model';
 
 export const createSupplier = async (name: string, email: string, contactNumber: number, state: string, city: string): Promise<SupplierInterface> => {
@@ -41,6 +42,21 @@ export const updateSupplier = async (supplier: SupplierInterface, name: string, 
     if (city) supplier.city = city;
 
     return await supplier.save()
+
+}
+
+export const updateAllTheSuppliersOfProducts = async (supplierId: string, supplier:string) => {
+
+    await supplierModel.updateOne(
+        { _id: supplierId, name: supplier }
+    );
+
+    const res = await productModel.updateMany(
+        {supplier: supplier, supplierId: supplierId}
+    );
+    
+    //Returns the number of objects modified
+    return res.modifiedCount;
 
 }
 

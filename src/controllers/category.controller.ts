@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { Request, Response } from "express";
 import { CATEGORY_ENDPOINT } from '../const/endpoint';
-import { createCategory, deleteCategoryById, getCategoriesById, getCategoryById, getCategoryByName, updateCategory } from '../services/category.service';
+import { createCategory, deleteCategoryById, getCategoriesById, getCategoryById, getCategoryByName, updateAllTheCategoriesOfProducts, updateCategory } from '../services/category.service';
 import { handleError } from '../utils/handleError';
 
 export const router: Router = Router();
 
-//                          C
+//                                                      C
 //Create a new category
 router.post(CATEGORY_ENDPOINT, async (req: Request, res: Response) => {
     try {
@@ -17,7 +17,7 @@ router.post(CATEGORY_ENDPOINT, async (req: Request, res: Response) => {
             return res.status(401).send({ message: 'El nombre de la categoria no puede quedar vacio.' });
         }
 
-        const categoryExists = await getCategoryByName(name);
+        const categoryExists = await getCategoryByName(res.locals._id);
 
         if (categoryExists) {
             return res.status(308).send({ message: 'Nombre de categoria ya existente.' });
@@ -33,7 +33,7 @@ router.post(CATEGORY_ENDPOINT, async (req: Request, res: Response) => {
 
 });
 
-//                          R
+//                                                         R
 //Get categories by id
 router.get(CATEGORY_ENDPOINT, async (req: Request, res: Response) => {
 
@@ -48,9 +48,8 @@ router.get(CATEGORY_ENDPOINT, async (req: Request, res: Response) => {
     }
   
   });
-//                          U
-//Update a category
-//Update a product
+//                                                          U
+//Update a category and also all the categories of the products
 router.put(CATEGORY_ENDPOINT + "/:categoryId", async (req: Request, res: Response) => {
     try {
       
@@ -66,6 +65,8 @@ router.put(CATEGORY_ENDPOINT + "/:categoryId", async (req: Request, res: Respons
             category,
             name
           );
+
+          await updateAllTheCategoriesOfProducts(res.locals.categoryId, name);
       
           return res.status(200).json(categoryUpdate);
 
@@ -77,7 +78,7 @@ router.put(CATEGORY_ENDPOINT + "/:categoryId", async (req: Request, res: Respons
   
   });
   
-//                          D
+//                                                      D
 //Delete a category
 router.delete(CATEGORY_ENDPOINT + "/:categoryId", async (req: Request, res: Response) => {
 

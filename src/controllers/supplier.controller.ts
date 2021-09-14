@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import { Request, Response } from "express";
 import { SUPPLIER_ENDPOINT } from '../const/endpoint';
-import { createSupplier, deleteSupplierById, getSupplierById, getSuppliersById, updateSupplier } from '../services/supplier.service';
+import { createSupplier, deleteSupplierById, getSupplierById, getSuppliersById, updateAllTheSuppliersOfProducts, updateSupplier } from '../services/supplier.service';
 
 import { handleError } from '../utils/handleError';
 
 export const router: Router = Router();
 
-//                      C
+//                                                          C
 //Create a new Supplier
 router.post(SUPPLIER_ENDPOINT, async(req: Request, res: Response) => {
     try {
@@ -26,7 +26,7 @@ router.post(SUPPLIER_ENDPOINT, async(req: Request, res: Response) => {
     }
 });
 
-//                      R
+//                                                          R
 //Get all Suppliers by id
 router.get(SUPPLIER_ENDPOINT, async (req: Request, res: Response) => {
 
@@ -41,7 +41,7 @@ router.get(SUPPLIER_ENDPOINT, async (req: Request, res: Response) => {
 
 });
 
-//                              U
+//                                                          U
 //Update a Supplier
 router.put(SUPPLIER_ENDPOINT + "/:supplierId", async(req: Request, res: Response) => {
 
@@ -64,6 +64,8 @@ router.put(SUPPLIER_ENDPOINT + "/:supplierId", async(req: Request, res: Response
                 city
             )
 
+            await updateAllTheSuppliersOfProducts(res.locals.supplierId, name);
+
             return res.status(200).json(supplierUpdate);
 
         }
@@ -73,7 +75,7 @@ router.put(SUPPLIER_ENDPOINT + "/:supplierId", async(req: Request, res: Response
     }
 });
 
-//                              D
+//                                                           D
 //Delete a Supplier
 router.delete(SUPPLIER_ENDPOINT + "/:supplierId", async(req: Request, res: Response) => {
 
