@@ -1,4 +1,5 @@
 import categoryModel, { CategoryInterface } from "../models/category.model";
+import productModel from "../models/product.model";
 
 export const createCategory = async (name: string): Promise<CategoryInterface> => {
 
@@ -43,6 +44,21 @@ export const updateCategory = async (category: CategoryInterface , name: string)
     return await category.save()
 
 };
+
+export const updateAllTheCategoriesOfProducts = async (categoryId: string, category:string) => {
+
+    await categoryModel.updateOne(
+        {_id: categoryId, name: category}
+    );
+
+    const res = await productModel.updateMany(
+        {category: category, categoryId: categoryId},
+    );
+
+    //Returns the number of objects modified
+    return res.modifiedCount;
+
+}
 
 export const deleteCategoryById = async (categoryId: string) => {
 
